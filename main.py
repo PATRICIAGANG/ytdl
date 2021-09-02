@@ -1,19 +1,18 @@
 import os
 import asyncio
 from urllib.parse import urlparse
-from pyrogram.errors import UserNotParticipant, UserBannedInChannel
 from pyrogram import Client, filters
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 from youtube_dl import YoutubeDL
 from opencc import OpenCC
-from config import API_ID, API_HASH, BOT_TOKEN, VIDEO_THUMBNAIL, AUDIO_THUMBNAIL
+from config import Config
 import wget
 
 app = Client(
-   "Patricia Bot",
-   api_id=API_ID,
-   api_hash=API_HASH,
-   bot_token=BOT_TOKEN,
+   "YT Downloader",
+   api_id=Config.APP_ID,
+   api_hash=Config.API_HASH,
+   bot_token=Config.TG_BOT_TOKEN,
 )
 YTDL_REGEX = (r"^((?:https?:)?\/\/)"
               r"?((?:www|m)\.)"
@@ -187,7 +186,7 @@ async def callback_query_ytdl_audio(_, callback_query):
     await callback_query.message.delete()
 
 
-if AUDIO_THUMBNAIL == "No":
+if Config.AUDIO_THUMBNAIL == "No":
    async def send_audio(message: Message, info_dict, audio_file):
        basename = audio_file.rsplit(".", 1)[-2]
        # .webm -> .weba
@@ -265,7 +264,7 @@ async def callback_query_ytdl_video(_, callback_query):
     await callback_query.message.reply_to_message.delete()
     await callback_query.message.delete()
 
-if VIDEO_THUMBNAIL == "No":
+if Config.VIDEO_THUMBNAIL == "No":
    async def send_video(message: Message, info_dict, video_file):
       basename = video_file.rsplit(".", 1)[-2]
       # thumbnail
