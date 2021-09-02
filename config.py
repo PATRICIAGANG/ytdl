@@ -11,3 +11,5 @@ class Config(object):
     AUDIO_THUMBNAIL = os.environ.get("AUDIO_THUMBNAIL", "https://telegra.ph/file/d2372fe42ccf8c9273088.jpg")
 
     VIDEO_THUMBNAIL = os.environ.get("VIDEO_THUMBNAIL", "https://telegra.ph/file/d2372fe42ccf8c9273088.jpg")
+
+    UPDATE_CHANNEL = os.environ.get(" UPDATE_CHANNEL", "tgbotzxd") 
