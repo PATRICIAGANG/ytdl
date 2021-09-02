@@ -75,9 +75,9 @@ async def about(client, message):
                chat_id=message.chat.id,
                text="""<b>About Patricia Bot!</b>
 <b>♞ Developer:</b> <a href="https://t.me/piroXpower">Jason</a>
-<b>♞ Support:</b> <a href="https://t.me/InfinityBOTs_Support">TGBotsXD support</a>
+<b>♞ Support:</b> <a href="https://t.me/TGbotsXD">TGBotsXD</a>
 <b>♞ Library:</b> <a href="https://github.com/pyrogram/pyrogram">Pyrogram</a>
-<b>Join @TGbotsXD</b>""",
+<b>Join @TGbotzXD</b>""",
      reply_markup=InlineKeyboardMarkup(
                                 [[
                                         InlineKeyboardButton(
