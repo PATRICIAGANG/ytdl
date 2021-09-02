@@ -180,7 +180,7 @@ async def callback_query_ytdl_audio(_, callback_query):
     await callback_query.message.delete()
 
 
-if AUDIO_THUMBNAIL == "No":
+if Config.AUDIO_THUMBNAIL == "No":
    async def send_audio(message: Message, info_dict, audio_file):
        basename = audio_file.rsplit(".", 1)[-2]
        # .webm -> .weba
@@ -258,7 +258,7 @@ async def callback_query_ytdl_video(_, callback_query):
     await callback_query.message.reply_to_message.delete()
     await callback_query.message.delete()
 
-if VIDEO_THUMBNAIL == "No":
+if Config.VIDEO_THUMBNAIL == "No":
    async def send_video(message: Message, info_dict, video_file):
       basename = video_file.rsplit(".", 1)[-2]
       # thumbnail
