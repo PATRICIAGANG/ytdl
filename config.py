@@ -12,4 +12,4 @@ class Config(object):
 
     VIDEO_THUMBNAIL = os.environ.get("VIDEO_THUMBNAIL", "https://telegra.ph/file/d2372fe42ccf8c9273088.jpg")
 
-    UPDATE_CHANNEL = os.environ.get(" UPDATE_CHANNEL", "tgbotzxd") 
+    UPDATES_CHANNEL = os.environ.get(" UPDATES_CHANNEL", "tgbotzxd") 
