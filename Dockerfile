@@ -7,6 +7,6 @@ RUN apt install ffmpeg -y
 RUN git clone https://github.com/PATRICIAGANG/ytdl
 
 RUN pip3 install --upgrade pip
-RUN pip3 install -u -r requirements.txt
+RUN pip3 install -U -r requirements.txt
 
 CMD python3 -m main.py
