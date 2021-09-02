@@ -1,6 +1,7 @@
 import os
 import asyncio
 from urllib.parse import urlparse
+from pyrogram.errors import UserNotParticipant, UserBannedInChannel
 from pyrogram import Client, filters
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 from youtube_dl import YoutubeDL
@@ -8,12 +9,13 @@ from opencc import OpenCC
 from config import Config
 import wget
 
-app = Client(
-   "YT Downloader",
+Jebot = Client(
+   "AnyDL Bot",
    api_id=Config.APP_ID,
    api_hash=Config.API_HASH,
    bot_token=Config.TG_BOT_TOKEN,
 )
+
 YTDL_REGEX = (r"^((?:https?:)?\/\/)"
               r"?((?:www|m)\.)"
               r"?((?:youtube\.com|youtu\.be|xvideos\.com|pornhub\.com"
@@ -22,14 +24,14 @@ YTDL_REGEX = (r"^((?:https?:)?\/\/)"
 s2tw = OpenCC('s2tw.json').convert
 
 
-@app.on_message(filters.command("start"))
+@Jebot.on_message(filters.command("start"))
 async def start(client, message):
    if message.chat.type == 'private':
        await Jebot.send_message(
                chat_id=message.chat.id,
-               text="""<b>Hey There, I'm Patricia Bot
+               text="""<b>Hey There, I'm AnyDL Bot
 
-I can download video or audio from Youtube, Pornhub and Xhamster. Made by @TGBotsXD.
+I can download video or audio from Youtube, Pornhub and Xhamster. Made by @JEBotZ.
 
 Hit help button to find out more about how to use me</b>""",   
                             reply_markup=InlineKeyboardMarkup(
@@ -37,25 +39,25 @@ Hit help button to find out more about how to use me</b>""",
                                         InlineKeyboardButton(
                                             "Help", callback_data="help"),
                                         InlineKeyboardButton(
-                                            "Channel", url="https://t.me/tgbotzXD")
+                                            "Channel", url="https://t.me/Infinity_BOTs")
                                     ],[
                                       InlineKeyboardButton(
-                                            "Source Code", url="https://github.com/TEAM-PATRICIA/PatriciaVideoPlayer")
+                                            "Source Code", url="https://github.com/ImJanindu/AnyDL-Bot")
                                     ]]
                             ),        
             disable_web_page_preview=True,        
             parse_mode="html")
 
-@app.on_message(filters.command("help"))
+@Jebot.on_message(filters.command("help"))
 async def help(client, message):
     if message.chat.type == 'private':   
         await Jebot.send_message(
                chat_id=message.chat.id,
-               text="""<b>Patricia Bot Help!
+               text="""<b>AnyDL Bot Help!
 
 Just send a Youtube, Pornhub or Xhamster video url to download it in video or audio format!
 
-Join @TGbotsXD</b>""",
+Join @Infinity_BOTs</b>""",
         reply_markup=InlineKeyboardMarkup(
                                 [[
                                         InlineKeyboardButton(
@@ -64,32 +66,32 @@ Join @TGbotsXD</b>""",
                                             "About", callback_data="about"),
                                   ],[
                                         InlineKeyboardButton(
-                                            "Source Code", url="https://github.com/TEAM-PATRICIA/PatriciaVideoPlayer")
+                                            "Source Code", url="https://github.com/ImJanindu/AnyDL-Bot")
                                     ]]
                             ),        
             disable_web_page_preview=True,        
             parse_mode="html")
 
-@app.on_message(filters.command("about"))
+@Jebot.on_message(filters.command("about"))
 async def about(client, message):
     if message.chat.type == 'private':   
         await Jebot.send_message(
                chat_id=message.chat.id,
-               text="""<b>About Patricia Bot!</b>
+               text="""<b>About AnyDL Bot!</b>
 
-<b>♞ Developer:</b> <a href="https://t.me/piroXpower">Jason</a>
+<b>♞ Developer:</b> <a href="https://t.me/ImJanindu">Jason</a>
 
-<b>♞ Support:</b> <a href="https://t.me/InfinityBOTs_Support">TGBotsXD support</a>
+<b>♞ Support:</b> <a href="https://t.me/InfinityBOTs_Support">Infinity BOTs Support</a>
 
 <b>♞ Library:</b> <a href="https://github.com/pyrogram/pyrogram">Pyrogram</a>
 
-<b>Join @TGbotsXD</b>""",
+<b>Join @Infinity_BOTs</b>""",
      reply_markup=InlineKeyboardMarkup(
                                 [[
                                         InlineKeyboardButton(
                                             "Back", callback_data="help"),
                                         InlineKeyboardButton(
-                                            "Source Code", url="https://github.com/TEAM-PATRICIA/PatriciaVideoPlayer")
+                                            "Source Code", url="https://github.com/ImJanindu/AnyDL-Bot")
                                     ]]
                             ),        
             disable_web_page_preview=True,        
@@ -98,7 +100,7 @@ async def about(client, message):
 
 # https://docs.pyrogram.org/start/examples/bot_keyboards
 # Reply with inline keyboard
-@app.on_message(filters.private
+@Jebot.on_message(filters.private
                    & filters.text
                    & ~filters.edited
                    & filters.regex(YTDL_REGEX))
@@ -109,7 +111,7 @@ async def ytdl_with_button(c: Client, message: Message):
             if user.status == "kicked":
                 await c.send_message(
                     chat_id=message.chat.id,
-                    text="Sorry, You are Banned to use me. Contact my [Support Group](https://t.me/TgbotsXD).",
+                    text="Sorry, You are Banned to use me. Contact my [Support Group](https://t.me/InfinityBots_Support).",
                     parse_mode="markdown",
                     disable_web_page_preview=True
                 )
@@ -131,7 +133,7 @@ async def ytdl_with_button(c: Client, message: Message):
         except Exception:
             await c.send_message(
                 chat_id=message.chat.id,
-                text="Something went Wrong. Contact my [Support Group](https://t.me/TGBotsXD).",
+                text="Something went Wrong. Contact my [Support Group](https://t.me/InfinityBots_Support).",
                 parse_mode="markdown",
                 disable_web_page_preview=True)
             return
@@ -155,7 +157,7 @@ async def ytdl_with_button(c: Client, message: Message):
     )
 
 
-@app.on_callback_query(filters.regex("^ytdl_audio$"))
+@Jebot.on_callback_query(filters.regex("^ytdl_audio$"))
 async def callback_query_ytdl_audio(_, callback_query):
     try:
         url = callback_query.message.reply_to_message.text
@@ -233,7 +235,7 @@ else:
        os.remove(audio_file)
        os.remove(thumbnail_file)
 
-@app.on_callback_query(filters.regex("^ytdl_video$"))
+@Jebot.on_callback_query(filters.regex("^ytdl_video$"))
 async def callback_query_ytdl_video(_, callback_query):
     try:
         # url = callback_query.message.text
@@ -334,7 +336,7 @@ def get_resolution(info_dict):
     return (width, height)
 
 
-@app.on_callback_query()
+@Jebot.on_callback_query()
 async def button(bot, update):
       cb_data = update.data
       if "help" in cb_data:
@@ -346,3 +348,12 @@ async def button(bot, update):
       elif "start" in cb_data:
         await update.message.delete()
         await start(bot, update.message)
+
+print(
+    """
+Bot Started!
+Join @Infinity_BOTs
+"""
+)
+
+Jebot.run()
