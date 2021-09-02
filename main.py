@@ -27,7 +27,7 @@ s2tw = OpenCC('s2tw.json').convert
 @app.on_message(filters.command("start"))
 async def start(client, message):
    if message.chat.type == 'private':
-       await Jebot.send_message(
+       await app.send_message(
                chat_id=message.chat.id,
                text="""<b>Hey There, I'm Patricia Bot
 I can download video or audio from Youtube, Pornhub and Xhamster. Made by @TGBotsXD.
@@ -49,7 +49,7 @@ Hit help button to find out more about how to use me</b>""",
 @app.on_message(filters.command("help"))
 async def help(client, message):
     if message.chat.type == 'private':   
-        await Jebot.send_message(
+        await app.send_message(
                chat_id=message.chat.id,
                text="""<b>Patricia Bot Help!
 Just send a Youtube, Pornhub or Xhamster video url to download it in video or audio format!
@@ -71,7 +71,7 @@ Join @TGbotsXD</b>""",
 @app.on_message(filters.command("about"))
 async def about(client, message):
     if message.chat.type == 'private':   
-        await Jebot.send_message(
+        await app.send_message(
                chat_id=message.chat.id,
                text="""<b>About Patricia Bot!</b>
 <b>♞ Developer:</b> <a href="https://t.me/piroXpower">Jason</a>
